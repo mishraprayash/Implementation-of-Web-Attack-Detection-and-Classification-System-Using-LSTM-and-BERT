@@ -70,7 +70,6 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 def init_db():
-
     # Initialize the database connection.
     try:
         with engine.connect() as conn:
