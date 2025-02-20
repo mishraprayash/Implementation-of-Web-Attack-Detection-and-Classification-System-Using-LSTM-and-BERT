@@ -1,0 +1,16 @@
+name: test_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - fastapi
+  - uvicorn
+  - sqlalchemy
+  - pymysql
+  - torch=2.3.0
+  - torchtext=0.18.0
+  - pip
+  - pip:
+    - torch=2.3.0 
+    - torchtext=0.18.0
