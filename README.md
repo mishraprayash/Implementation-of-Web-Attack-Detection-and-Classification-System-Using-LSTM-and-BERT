@@ -76,7 +76,7 @@ conda env create -f environment.yml
 
 ```
 
-### System-Specific Installtion
+### System-Specific Installation
 
 Use the stable version of python such as python@3.11 or python@3.12
 #### On macOS/Linux:
