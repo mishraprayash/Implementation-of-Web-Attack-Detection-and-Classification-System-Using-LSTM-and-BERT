@@ -49,7 +49,7 @@ For the most lazy people, you can create virtual enviroment, install dependencie
 
 If you are testing locally, you need to run the database server. If your database is hosted on a remote server, you can update the DATABASE_URL from config.py.
 
-[Refer here](#bash-automation (one-liner)) for bash script.
+[Refer here](#bash-automation) for bash script.
 
 #### Manual Installtion
 
@@ -101,7 +101,7 @@ With the virtual environment activated, install the required dependencies:
 pip install -r requirements.txt
 ```
 
-# Bash Automation (One liner)
+# Bash Automation
 
 ```bash
 cd Implementation-of-Web-Attack-Detection-and-Classification-System-Using-LSTM
