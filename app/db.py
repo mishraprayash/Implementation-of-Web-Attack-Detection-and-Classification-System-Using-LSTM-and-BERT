@@ -1,26 +1,33 @@
-# import logging
-# from sqlalchemy import create_engine
-# from sqlalchemy.ext.declarative import declarative_base
-# from sqlalchemy.orm import sessionmaker
-# from config import DATABASE_URL
+"""
+----Commented code----
 
-# # Configure logging
-# logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-# logger = logging.getLogger(__name__)
+If the name of the Database is known and already exists then we can use this code. You also need to update the DATABASE_URL with actual database name at the end of it.
 
-# # Database setup
-# engine = create_engine(DATABASE_URL)
-# SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-# Base = declarative_base()
+import logging
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from config import DATABASE_URL
 
-# def init_db():
-#     """Initialize the database connection and check if it's reachable."""
-#     try:
-#         with engine.connect() as conn:
-#             logger.info("✅ Database connection successful.")
-#     except Exception as e:
-#         logger.error(f"❌ Database connection failed: {e}")
-#         raise
+# Configure logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logger = logging.getLogger(__name__)
+
+# Database setup
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+
+def init_db():
+    # Initialize the database connection and check if it's reachable.
+    try:
+        with engine.connect() as conn:
+            logger.info("✅ Database connection successful.")
+    except Exception as e:
+        logger.error(f"❌ Database connection failed: {e}")
+        raise
+
+"""
 
 import logging
 from sqlalchemy import create_engine,text
@@ -48,6 +55,7 @@ def create_database():
     """Ensure the database exists before proceeding."""
     try:
         with engine.connect() as conn:
+            # create a new database based on the provided name if it alreaady doesnot exists
             conn.execute(text(f"CREATE DATABASE IF NOT EXISTS {db_name}"))
             logger.info(f"✅ Database '{db_name}' ensured.")
     except OperationalError as e:
@@ -63,7 +71,7 @@ Base = declarative_base()
 
 def init_db():
 
-    """Initialize the database connection."""
+    # Initialize the database connection.
     try:
         with engine.connect() as conn:
             logger.info("✅ Database connection successful.")
