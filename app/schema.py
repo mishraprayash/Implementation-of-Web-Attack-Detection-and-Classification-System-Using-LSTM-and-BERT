@@ -3,6 +3,8 @@
 from pydantic import BaseModel
 
 class RequestData(BaseModel):
+    method:str
+    source_ip:str
     host: str
     uri: str
     auth: str
