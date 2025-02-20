@@ -47,7 +47,7 @@ It is recommended to create a virtual environment to manage dependencies. Note: 
 
 For the most lazy people, you can create virtual enviroment, install dependencies and run the server all together using a single script. But before that, make sure you have configured your database server. Here, I am using MySQL database. 
 
-If you are testing locally, you need to run the database server. If your database is hosted on a remote server, you can update the DATABASE_URL from config.py.
+If you are testing locally, make sure to run your local database server. If your database is hosted on a remote server, you can update the DATABASE_URL in config.py.
 
 [Refer here](#bash-automation) for bash script.
 
