@@ -33,8 +33,8 @@ predictor = Predictor()
 logger.info("✅ Model loaded successfully.")
 
 @app.post("/predict")
-async def predict_endpoint(request_data: RequestData, background_tasks: BackgroundTasks):
-    data = request_data.dict()
+async def predict_endpoint(request: RequestData, background_tasks: BackgroundTasks):
+    data = request.dict()
     logger.info(f"🔍 Received request for prediction: {data['uri']}")
 
     try:
@@ -67,3 +67,8 @@ async def predict_endpoint(request_data: RequestData, background_tasks: Backgrou
     background_tasks.add_task(save_log_entry, log_entry_data)
     
     return result
+
+@app.get('/health')
+async def health_check():
+    return {"status":"ok"}
+
