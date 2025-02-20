@@ -8,9 +8,7 @@ dependencies:
   - uvicorn
   - sqlalchemy
   - pymysql
-  - torch=2.3.0
-  - torchtext=0.18.0
   - pip
   - pip:
-    - torch=2.3.0 
-    - torchtext=0.18.0
+    - torch==2.3.0   #using pip for torch & torchtext
+    - torchtext==0.18.0
