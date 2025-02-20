@@ -45,13 +45,20 @@ It is recommended to create a virtual environment to manage dependencies. Note: 
 
 ### Using Conda environment
 
+For the most lazy people, you can create virtual enviroment, install dependencies and run the server all together using a single script. But before that, make sure you have configured your database server. Here, I am using MySQL database. 
+
+If you are testing locally, you need to run the database server. If your database is hosted on a remote server, you can update the DATABASE_URL from config.py.
+
+[Refer here](#bash-automation) for bash script.
+
 #### Manual Installtion
 
 You must have already installed conda to use this.
 
 ```bash
 # create an environment
-# this env comes with pip while creating it.
+# pip comes installed while creating this environment
+
 conda create -n test_env python=3.11 
 conda activate test_env
 
@@ -60,7 +67,7 @@ pip install -r requirements.txt
 
 ```
 
-#### Installtion using environment.yml 
+#### Alternative installation using environment.yml 
 
 The environemt.yml file contains the env name, conda channels(we can change it as per the requirements), and the dependencies. If the dependencies arenot available through the conda channel, we can use pip for installing those dependencies.
 
@@ -69,13 +76,13 @@ conda env create -f environment.yml
 
 ```
 
-### Using our system
+### System-Specific Installtion
 
 Use the stable version of python such as python@3.11 or python@3.12
 #### On macOS/Linux:
 
 ```bash
-python3 -m venv test_env
+python3.12 -m venv test_env
 source test_env/bin/activate
 ```
 
@@ -94,10 +101,20 @@ With the virtual environment activated, install the required dependencies:
 pip install -r requirements.txt
 ```
 
+# Bash Automation (One liner)
+
+```bash
+cd Implementation-of-Web-Attack-Detection-and-Classification-System-Using-LSTM
+chmod +x setup_and_run.sh 
+./setup_and_run
+
+```
 
 ## Running the FastAPI Server
 
 Uvicorn is an Asynchronous Server Gateway Interface (ASGI) used to handle web application enabling asynchronous programming and better performance over traditional WSGI. You can read about it more [here](https://www.uvicorn.org/).
+
+Make sure your database is properly configured before running this.
 
 Start the FastAPI server using Uvicorn:
 
