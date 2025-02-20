@@ -34,7 +34,8 @@ logger.info("✅ Model loaded successfully.")
 
 @app.post("/predict")
 async def predict_endpoint(request: RequestData, background_tasks: BackgroundTasks):
-    data = request.dict()
+    # converting to dict 
+    data = request.model_dump()
     logger.info(f"🔍 Received request for prediction: {data['uri']}")
 
     try:
