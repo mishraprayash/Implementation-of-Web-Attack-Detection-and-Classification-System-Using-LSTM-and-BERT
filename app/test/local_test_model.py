@@ -51,11 +51,7 @@ def testFunction(test_dict):
     pred = label[torch.argmax(model(model_input),dim=1).item()]
     print(f"{pred}, {round(inference_time*1000,5)}ms")
 
-
-
 TEST_REQUEST_COUNT = 20
-
-print("----Malicious Test ----")
 
 for i in range(TEST_REQUEST_COUNT):
     normal_req = generate_request_normal()
