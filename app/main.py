@@ -54,9 +54,9 @@ async def predict_endpoint(request: RequestData, background_tasks: BackgroundTas
     
     log_entry_data = {
         "id": str(uuid.uuid4()),
-        "method": data['method'],  # Assuming the method is POST
+        "method": data["method"], 
         "endpoint": data["uri"],
-        "ip": data["source_ip"],  # Replace with actual IP if available
+        "ip": data["source_ip"], 
         "category": category,
         "attackType": attack_type,
         "attackPayload": data["body"],
