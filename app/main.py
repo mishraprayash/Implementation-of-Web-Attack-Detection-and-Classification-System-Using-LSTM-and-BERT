@@ -47,9 +47,9 @@ async def predict_endpoint(request: RequestData, background_tasks: BackgroundTas
     # Map the prediction to logging details
     pred = result["prediction"]
     prediction_probability = result["prediction_probability"]
-    category = 'MALICIOUS' if pred != 'normal' else 'NORMAL'
-    attack_type = pred.upper() if pred != 'normal' else 'NULL'
-    severity = 'CRITICAL' if pred in ['sql', 'xss', 'cmd', 'lfi', 'ssrf'] else 'LOW'
+    category = 'MALICIOUS' if pred != 'NORMAL' else 'NORMAL'
+    attack_type = pred.upper() if pred != 'NORMAL' else 'NULL'
+    severity = 'CRITICAL' if pred in ['SQLI', 'XSS', 'CMDI', 'LFI', 'SSRF'] else 'LOW'
     
     log_entry_data = {
         "id": str(uuid.uuid4()),
