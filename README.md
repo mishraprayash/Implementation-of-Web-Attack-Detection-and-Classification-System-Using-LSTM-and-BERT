@@ -85,6 +85,8 @@ uvicorn main:app --reload
 
   ```json
   {
+    "method":"POST",
+    "source_ip":"34.98.121.202",
     "host": "example.com",
     "uri": "/login",
     "auth": "Bearer token123",
@@ -123,6 +125,8 @@ You can test the API using `curl` or any API testing tool like Postman. For exam
 curl -X POST "http://localhost:8000/predict" \
 -H "Content-Type: application/json" \
 -d '{
+  "method":"POST",
+  "source_ip":"34.98.121.202",
   "host": "example.com",
   "uri": "/test",
   "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
