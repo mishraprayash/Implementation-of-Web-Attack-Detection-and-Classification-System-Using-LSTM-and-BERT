@@ -1,5 +1,5 @@
 
-# Implemention for Web Attack Detection and Classification using Long Short Term Memory (LSTM)-based Model using FastAPI
+# Implemention of Web Attack Detection and Classification using Long Short Term Memory (LSTM)-based Model using FastAPI
 
 
 ##  FastAPI Model Deployment 
@@ -40,8 +40,39 @@ cd Implementation-of-Web-Attack-Detection-and-Classification-System-Using-LSTM
 
 ### 2. Setup Virtual Environment
 
-It is recommended to create a virtual environment to manage dependencies.
+It is recommended to create a virtual environment to manage dependencies. Note: Use the stable version of python supporting the below used dependecies. You can use python@3.11 while creating your virtual environent.
 
+
+### Using Conda environment
+
+#### Manual Installtion
+
+You must have already installed conda to use this.
+
+```bash
+# create an environment
+# this env comes with pip while creating it.
+
+conda create -n test_env python=3.11 
+conda activate test_env
+
+# you can use pip as well conda(with specific channels if needed)
+pip install -r requirements.txt 
+
+```
+
+#### Installtion using environment.yml 
+
+The environment.yml file contains the env name, conda channels(we can change it as per the requirements), and the dependencies. If the dependencies arenot available through the conda channel, we can use pip for installing those dependencies.
+
+```bash
+conda env create -f environment.yml 
+
+```
+
+### Using our system
+
+Use the stable version of python such as python@3.11 or python@3.12
 #### On macOS/Linux:
 
 ```bash
@@ -56,13 +87,14 @@ python -m venv test_env
 test_env\Scripts\activate
 ```
 
-### 3. Install Dependencies
+#### Install Dependencies
 
 With the virtual environment activated, install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
+
 
 ## Running the FastAPI Server
 
@@ -71,6 +103,7 @@ Uvicorn is an Asynchronous Server Gateway Interface (ASGI) used to handle web ap
 Start the FastAPI server using Uvicorn:
 
 ```bash
+cd app/
 uvicorn main:app --reload
 ```
 
@@ -86,7 +119,7 @@ uvicorn main:app --reload
   ```json
   {
     "method":"POST",
-    "source_ip":"34.98.121.202",
+    "source_ip":"56.34.67.21",
     "host": "example.com",
     "uri": "/login",
     "auth": "Bearer token123",
@@ -126,7 +159,7 @@ curl -X POST "http://localhost:8000/predict" \
 -H "Content-Type: application/json" \
 -d '{
   "method":"POST",
-  "source_ip":"34.98.121.202",
+  "source_ip":"45.34.189.235",
   "host": "example.com",
   "uri": "/test",
   "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
