@@ -7,6 +7,8 @@ API_URL = "http://127.0.0.1:8000/predict"
 
 # Sample request data (modify as needed)
 test_data = {
+    "method":"PUT",
+    "source_ip":"192.168.1.56",
     "host": "example.com",
     "uri": "/login",
     "auth": "Bearer token123",
