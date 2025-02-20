@@ -1,5 +1,5 @@
 
-# Implemention of Web Attack Detection and Classification using Long Short Term Memory (LSTM)-based Model using FastAPI
+# Implemention for Web Attack Detection and Classification using Long Short Term Memory (LSTM)-based Model using FastAPI
 
 
 ##  FastAPI Model Deployment 
@@ -52,7 +52,6 @@ You must have already installed conda to use this.
 ```bash
 # create an environment
 # this env comes with pip while creating it.
-
 conda create -n test_env python=3.11 
 conda activate test_env
 
@@ -63,7 +62,7 @@ pip install -r requirements.txt
 
 #### Installtion using environment.yml 
 
-The environment.yml file contains the env name, conda channels(we can change it as per the requirements), and the dependencies. If the dependencies arenot available through the conda channel, we can use pip for installing those dependencies.
+The environemt.yml file contains the env name, conda channels(we can change it as per the requirements), and the dependencies. If the dependencies arenot available through the conda channel, we can use pip for installing those dependencies.
 
 ```bash
 conda env create -f environment.yml 
@@ -112,6 +111,18 @@ uvicorn main:app --reload
 
 ## API Endpoints
 
+
+
+### `/health/` (GET)
+- **Description:** Checks the health status of the server.
+- **Response Example:**
+
+  ```json
+  {
+    "status": "OK"
+  }
+  ```
+
 ### `/predict/` (POST)
 - **Description:** Accepts input data in JSON format and returns a prediction from the machine learning model.
 - **Request Body Example:**
@@ -140,15 +151,7 @@ uvicorn main:app --reload
   }
   ```
 
-### `/health/` (GET)
-- **Description:** Checks the health status of the server.
-- **Response Example:**
 
-  ```json
-  {
-    "status": "OK"
-  }
-  ```
 
 ## Example Usage
 
