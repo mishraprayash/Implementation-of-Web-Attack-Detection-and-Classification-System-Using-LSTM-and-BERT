@@ -1,7 +1,7 @@
 # app/models.py
 
 from sqlalchemy import Column, String, Text, Enum, DateTime, Boolean, Float
-from datetime import datetime
+from datetime import datetime, timedelta, UTC
 from db import Base
 
 
@@ -30,7 +30,7 @@ class RequestLog(Base):
         default="NULL",
     )
     attackPayload = Column(Text)
-    createdAt = Column(DateTime, nullable=False, default=datetime.utcnow)
+    createdAt = Column(DateTime, nullable=False, default=datetime.now(UTC) + timedelta(seconds=20700))
     misClassified = Column(Boolean, nullable=False, default=False)
     predictionProbability = Column(Float, nullable=False, default=0.0)
     severity = Column(Enum("CRITICAL", "HIGH", "MEDIUM", "LOW"))

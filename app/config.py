@@ -4,5 +4,8 @@
 
 DATABASE_URL = "mysql+pymysql://root:root@localhost:3306/Logging_V2"  
 
-MODEL_PATH = "./lstm_model/model.pt"
-VOCAB_PATH = "./lstm_model/vocab.pth"
+LSTM_MODEL_PATH = "./ai_model/lstm_model.pt"
+LSTM_VOCAB_PATH = "./ai_model/lstm_vocab.pth"
+
+BERT_MODEL_PATH = './ai_model/bert_model.pth'
+BERT_VOCAB_PATH = './ai_model/custom_keywords.txt'

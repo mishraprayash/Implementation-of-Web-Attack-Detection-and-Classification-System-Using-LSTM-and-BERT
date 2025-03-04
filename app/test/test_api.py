@@ -3,7 +3,8 @@ import json
 import time
 
 # Define the API endpoint (update this if running on a different host)
-API_URL = "http://127.0.0.1:8000/predict"
+API_URL_LSTM = "http://0.0.0.0:8000/predict_lstm" 
+API_URL_BERT = "http://0.0.0.0:8000/predict_bert"
 
 # Sample request data (modify as needed)
 test_data = {
@@ -11,11 +12,11 @@ test_data = {
     "source_ip":"192.168.1.56",
     "host": "example.com",
     "uri": "/login",
-    "auth": "Bearer token123",
+    "auth": "",
     "agent": "Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36",
-    "cookie": "session=abc123; path=/",
+    "cookie": "",
     "referer": "https://example.com/home",
-    "body": "SELECT * FROM users WHERE username='admin' --"
+    "body": ''
 }
 
 # Convert to JSON format
@@ -26,7 +27,7 @@ start_time = time.time()
 
 try:
     # Send a POST request to the API
-    response = requests.post(API_URL, data=json_data, headers={"Content-Type": "application/json"})
+    response = requests.post(API_URL_LSTM, data=json_data, headers={"Content-Type": "application/json"})
 
     # Measure response time
     elapsed_time = time.time() - start_time

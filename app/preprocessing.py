@@ -5,7 +5,7 @@ import torch
 import torchtext; torchtext.disable_torchtext_deprecation_warning()
 from torchtext.data import get_tokenizer
 
-class Preprocessor:
+class LSTM_Preprocessor:
     def __init__(self, vocab_path: str, max_length: int = 235):
         self.special_chars_pattern = re.compile(r'([.,!?;:(){}\[\]@"#$%^&*\-_=+|\\<>~/^\'"])')
         self.multispace_pattern = re.compile(r"\s+")
@@ -39,3 +39,5 @@ class Preprocessor:
         token_indices = self.vocab.lookup_indices(tokens)
         token_indices = self.pad_sequence(token_indices)
         return token_indices
+
+

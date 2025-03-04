@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 
 from schema import RequestData
-from predictor import Predictor
+from predictor import LSTM_Predictor, BERT_Predictor
 from background_tasks import save_log_entry
 from db import engine, Base, init_db
 
@@ -28,24 +28,57 @@ app.add_middleware(
 )
 
 # Initialize predictor instance
-logger.info("📢 Loading model...")
-predictor = Predictor()
+logger.info("📢 Loading models...")
+lstm_predictor = LSTM_Predictor()
+bert_predictor = BERT_Predictor()
 logger.info("✅ Model loaded successfully.")
 
-@app.post("/predict")
-async def predict_endpoint(request: RequestData, background_tasks: BackgroundTasks):
+
+@app.post("/predict_lstm")
+async def predict_using_lstm(request: RequestData, background_tasks: BackgroundTasks):
     # converting to dict 
     data = request.model_dump()
     logger.info(f"🔍 Received request for prediction: {data['uri']}")
 
     try:
-        result = predictor.predict(data)
+        result = lstm_predictor.predict(data)
         logger.info(f"✅ Prediction successful: {result['prediction']}")
     except Exception as e:
         logger.error(f"❌ Prediction failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
     
-    # Map the prediction to logging details
+    result['model'] = "LSTM"
+    
+    await logging_setup(data,result,background_tasks)
+    
+    return result
+
+
+@app.post('/predict_bert')
+async def predict_using_bert(request:RequestData, background_tasks:BackgroundTasks):
+    data = request.model_dump()
+    try:
+        preprocessed = bert_predictor.preprocess(data)
+        result = bert_predictor.predict(preprocessed)
+        logger.info(f"✅ Prediction successful: {result['prediction']}")
+    except Exception as e:
+        logger.error(f"❌ Prediction failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+    
+    result['model'] = "BERT"
+    
+    await logging_setup(data,result,background_tasks)
+    
+    return result
+
+
+@app.get('/health')
+async def health_check():
+    return {"status":"ok"}
+
+
+async def logging_setup(data, result, background_tasks: BackgroundTasks):
+     # Map the prediction to logging details
     pred = result["prediction"]
     prediction_probability = result["prediction_probability"]
     category = 'MALICIOUS' if pred != 'NORMAL' else 'NORMAL'
@@ -66,10 +99,3 @@ async def predict_endpoint(request: RequestData, background_tasks: BackgroundTas
     
     # Schedule the database logging as a background task
     background_tasks.add_task(save_log_entry, log_entry_data)
-    
-    return result
-
-@app.get('/health')
-async def health_check():
-    return {"status":"ok"}
-
