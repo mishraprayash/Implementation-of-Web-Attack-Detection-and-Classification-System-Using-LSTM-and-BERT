@@ -5,3 +5,4 @@ torchtext==0.18.0
 sqlalchemy
 pymysql
 transformers==4.45.2
+cryptography
