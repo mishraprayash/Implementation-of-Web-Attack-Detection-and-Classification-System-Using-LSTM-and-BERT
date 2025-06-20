@@ -2,7 +2,8 @@
 
 # DATABASE_URL = "mysql+pymysql://<username>:<password>@host:port/<db_name>"
 
-DATABASE_URL = "mysql+pymysql://root:root@localhost:3306/Logging_V2"  
+DATABASE_URL = "mysql+pymysql://root:prayash%40123@localhost:3306/Logging_V3"  
+
 
 LSTM_MODEL_PATH = "./ai_model/lstm_model.pt"
 LSTM_VOCAB_PATH = "./ai_model/lstm_vocab.pth"
