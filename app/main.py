@@ -7,6 +7,8 @@ from schema import RequestData
 from predictor import LSTM_Predictor, BERT_Predictor
 from background_tasks import save_log_entry
 from db import engine, Base, init_db
+import json
+from datetime import datetime
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -72,9 +74,9 @@ async def predict_using_bert(request:RequestData, background_tasks:BackgroundTas
     return result
 
 
-@app.get('/health')
+@app.get('/')
 async def health_check():
-    return {"status":"ok"}
+    return {"status":"ok","timestamp":datetime.now()}
 
 
 async def logging_setup(data, result, background_tasks: BackgroundTasks):
@@ -92,10 +94,10 @@ async def logging_setup(data, result, background_tasks: BackgroundTasks):
         "ip": data["source_ip"], 
         "category": category,
         "attackType": attack_type,
-        "attackPayload": data["body"],
+        "attackPayload": json.dumps(data),
         "predictionProbability": prediction_probability,
         "severity": severity
     }
-    
+
     # Schedule the database logging as a background task
     background_tasks.add_task(save_log_entry, log_entry_data)
