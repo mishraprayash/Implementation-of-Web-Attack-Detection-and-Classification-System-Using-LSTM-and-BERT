@@ -1,199 +1,223 @@
+## Web Attack Detection & Classification System using LSTM and Mobile-BERT with FastAPI
 
-# Implemention for Web Attack Detection and Classification using Long Short Term Memory (LSTM)-based Model using FastAPI
+This project deploys both Long Short-Term Memory (LSTM) and Mobile‑BERT machine learning models for real-time web attack detection and classification via a FastAPI server.
 
+---
 
-##  FastAPI Model Deployment 
-
-This project sets up a FastAPI server to deploy a machine learning model as an API for real-time predictions. The API processes incoming requests and returns model predictions based on input data. This guide provides instructions for setting up the development environment, running the server, and understanding the project structure.
-
-## Project Structure
+## 📂 Project Structure
 
 ```
-app/
-├── background_tasks.py    
-├── config.py               
-├── db.py                  
-├── lstm_model/            
-│   ├── model.pt           
-│   └── vocab.pth          
-├── model.py               
-├── main.py                
-├── predictor.py          
-├── preprocessor.py        
-├── schema.py                         
-├── test/                 
-│   └── ...                
-requirements.txt 
-.gitignore  
+.
+├── app/
+│   ├── background_tasks.py    # Background job definitions
+│   ├── config.py              # Application and database settings
+│   ├── db.py                  # Database connectivity
+│   ├── main.py                # FastAPI application and routes
+│   ├── model.py               # Model loading and inference logic
+│   ├── predictor.py           # Prediction orchestration
+│   ├── preprocessing.py       # Request data cleaning and tokenization
+│   ├── schema.py              # Pydantic request/response schemas
+│   ├── ai_model/              # Trained models and resources
+│   │   ├── bert_model.pth
+│   │   ├── custom_keywords.txt
+│   │   ├── lstm_model.pt
+│   │   └── lstm_vocab.pth
+│   └── test/                  # Test scripts
+│       ├── local_test_model.py
+│       ├── requestgenerator.py
+│       └── test_api.py
+├── environment.yml            # Conda environment definition
+├── requirements.txt           # Python dependencies
+├── setup_and_run.sh           # Automated setup & launch script
+├── .gitignore
+└── README.md
 ```
 
-## Installation and Setup
+---
+
+## 🚀 Prerequisites
+
+* **Python**: 3.11 or 3.12
+* **Conda** (optional but recommended) or `venv`
+* **MySQL** (or another database) configured and reachable
+* **Git**
+
+---
+
+## 🔧 Installation
 
 ### 1. Clone the Repository
 
-Clone this repository to your local machine:
-
 ```bash
-git clone https://github.com/mishraprayash/Implementation-of-Web-Attack-Detection-and-Classification-System-Using-LSTM
+git clone https://github.com/mishraprayash/Implementation-of-Web-Attack-Detection-and-Classification-System-Using-LSTM.git
 cd Implementation-of-Web-Attack-Detection-and-Classification-System-Using-LSTM
 ```
 
-### 2. Setup Virtual Environment
+### 2. Create & Activate Virtual Environment
 
-It is recommended to create a virtual environment to manage dependencies. Note: Use the stable version of python supporting the below used dependecies. You can use python@3.11 while creating your virtual environent.
-
-
-### Using Conda environment
-
-For the most lazy people, you can create virtual enviroment, install dependencies and run the server all together using a single script. But before that, make sure you have configured your database server. Here, I am using MySQL database. 
-
-If you are testing locally, make sure to run your local database server. If your database is hosted on a remote server, you can update the DATABASE_URL in config.py.
-
-[Refer here](#bash-automation) for bash script.
-
-#### Manual Installtion
-
-You must have already installed conda to use this.
+#### Using Conda
 
 ```bash
-# create an environment
-# pip comes installed while creating this environment
-
-conda create -n test_env python=3.11 
-conda activate test_env
-
-# you can use pip as well conda(with specific channels if needed)
-pip install -r requirements.txt 
-
+conda create -n webattack_env python=3.11 -y
+conda activate webattack_env
 ```
 
-#### Alternative installation using environment.yml 
-
-The environemt.yml file contains the env name, conda channels(we can change it as per the requirements), and the dependencies. If the dependencies arenot available through the conda channel, we can use pip for installing those dependencies.
+##### Alternative via `environment.yml`
 
 ```bash
-conda env create -f environment.yml 
-
+conda env create -f environment.yml
+conda activate webattack_env
 ```
 
-### System-Specific Installation
-
-Use the stable version of python such as python@3.11 or python@3.12
-#### On macOS/Linux:
+#### Using `venv` (macOS/Linux)
 
 ```bash
-python3.12 -m venv test_env
-source test_env/bin/activate
+python3.11 -m venv webattack_env
+source webattack_env/bin/activate
 ```
 
-#### On Windows:
+#### Using `venv` (Windows)
 
 ```bash
-python -m venv test_env
-test_env\Scripts\activate
+python -m venv webattack_env
+webattack_env\Scripts\activate
 ```
 
-#### Install Dependencies
-
-With the virtual environment activated, install the required dependencies:
+### 3. Install Python Dependencies
 
 ```bash
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-# Bash Automation
+---
+
+## 🛠️ Automated Setup Script
+
+You can automate environment creation, dependency installation, and server launch:
 
 ```bash
-cd Implementation-of-Web-Attack-Detection-and-Classification-System-Using-LSTM
-chmod +x setup_and_run.sh 
-./setup_and_run
-
+chmod +x setup_and_run.sh
+./setup_and_run.sh
 ```
 
-## Running the FastAPI Server
+> Ensure your database server is running and `DATABASE_URL` in `app/config.py` is correctly set.
 
-Uvicorn is an Asynchronous Server Gateway Interface (ASGI) used to handle web application enabling asynchronous programming and better performance over traditional WSGI. You can read about it more [here](https://www.uvicorn.org/).
+---
 
-Make sure your database is properly configured before running this.
+## 🚀 Running the FastAPI Server
 
-Start the FastAPI server using Uvicorn:
+1. **Navigate to the app directory**
 
-```bash
-cd app/
-uvicorn main:app --reload
-```
+   ```bash
+   cd app
+   ```
+2. **Start Uvicorn**
 
-- The server will run at [http://127.0.0.1:8000](http://127.0.0.1:8000).
-- The `--reload` flag enables automatic reloading during development when code changes occur.
+   ```bash
+   uvicorn main:app --reload
+   ```
+3. **Open in Browser**
+   Visit: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-## API Endpoints
+> The `--reload` flag enables hot-reload on code changes.
 
+---
 
+## 📡 API Endpoints
 
-### `/health/` (GET)
-- **Description:** Checks the health status of the server.
-- **Response Example:**
+### Health Check: `GET /`
+
+* **Description**: Server health status
+* **Response**:
 
   ```json
   {
-    "status": "OK"
+    "status": "OK",
+    "timestamp": "2023-10-01T12:00:00Z"
   }
   ```
 
-### `/predict/` (POST)
-- **Description:** Accepts input data in JSON format and returns a prediction from the machine learning model.
-- **Request Body Example:**
+### LSTM Prediction: `POST /predict_lstm`
+
+* **Description**: Returns prediction from the LSTM model
+* **Request Body**:
 
   ```json
   {
-    "method":"POST",
-    "source_ip":"56.34.67.21",
+    "method": "POST",
+    "source_ip": "56.34.67.21",
     "host": "example.com",
     "uri": "/login",
     "auth": "Bearer token123",
     "agent": "Mozilla/5.0",
     "cookie": "session=abc123",
     "referer": "https://example.com/home",
-    "body": "{\"username\":\"test\", password:\"test; select * from users; -- OR '1'='1\"}"
+    "body": "{ \"username\":\"test\", \"password\":\"test; select * from users; -- OR '1'='1\"}"
   }
   ```
-
-- **Response Example:**
+* **Response**:
 
   ```json
   {
     "prediction": "SQLI",
-    "prediction_probability":0.901121,
-    "inference_time_ms":20.239
+    "inference_time_ms": 15.234,
+    "prediction_probability": 0.9011,
+    "malicious": true,
+    "mode": "LSTM"
   }
   ```
 
+### BERT Prediction: `POST /predict_bert`
 
+* **Description**: Returns prediction from the BERT model
+* **Request & Response**: Same schema as `/predict_lstm`, with `mode: "Mobile-BERT"`.
 
-## Example Usage
+---
 
-You can test the API using `curl` or any API testing tool like Postman. For example, to test the prediction endpoint with `curl`:
+## 💡 Example Usage (cURL)
 
 ```bash
-curl -X POST "http://localhost:8000/predict" \
--H "Content-Type: application/json" \
--d '{
-  "method":"POST",
-  "source_ip":"45.34.189.235",
-  "host": "example.com",
-  "uri": "/test",
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-  "agent": "Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36",
-  "cookie": "username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/",
-  "referer": "https://example.com/refer",
-  "body": "{\"username\":\"hacker\", \"password\":\"hacked; select * from user where user='admin' OR '1'='1' --\"}"
-}'
+curl -X POST http://127.0.0.1:8000/predict_lstm \
+  -H "Content-Type: application/json" \
+  -d '{
+      "method": "POST",
+      "source_ip": "45.34.189.235",
+      "host": "example.com",
+      "uri": "/test",
+      "auth": "Bearer <token>",
+      "agent": "Mozilla/5.0",
+      "cookie": "username=John; path=/",
+      "referer": "https://example.com",
+      "body": "{ \"username\":\"hacker\", \"password\":\"hacked;...\" }"
+    }'
 ```
 
+* **Response**:
 
-## Acknowledgements
+  ```json
+  {
+    "prediction": "SQLI",
+    "inference_time_ms": 15.234,
+    "prediction_probability": 0.9011,
+    "malicious": true,
+    "mode": "BERT"
+  }
+  ```
 
-- **FastAPI**: A modern, fast (high-performance) web framework for building APIs with Python.
-- **Uvicorn**: A lightning-fast ASGI server for running FastAPI apps.
+---
 
+## Developers Team
+
+- [@ashimkarki](https://github.com/Ashimkarrki)
+- [@nirajneupane](https://github.com/patali09)
+- [@nilumahato](https://github.com/nilumahato)
+
+
+## 🙏 Acknowledgements
+
+* **FastAPI**: High-performance Python API framework
+* **Uvicorn**: ASGI server for asynchronous apps
+
+---
 
