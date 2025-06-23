@@ -1,8 +1,17 @@
 ## Web Attack Detection & Classification System using LSTM and Mobile-BERT with FastAPI
 
+
 This project deploys both Long Short-Term Memory (LSTM) and Mobile‑BERT machine learning models for real-time web attack detection and classification via a FastAPI server.
 
 ---
+
+## Contributors
+
+- [@mishraprayash](https://github.com/mishraprayash)
+- [@ashimkarki](https://github.com/Ashimkarrki)
+- [@nirajneupane](https://github.com/patali09)
+- [@nilumahato](https://github.com/nilumahato)
+
 
 ## 📂 Project Structure
 
@@ -200,13 +209,6 @@ curl -X POST http://127.0.0.1:8000/predict_lstm \
   ```
 
 ---
-
-## Developers Team
-
-- [@mishraprayash](https://github.com/mishraprayash)
-- [@ashimkarki](https://github.com/Ashimkarrki)
-- [@nirajneupane](https://github.com/patali09)
-- [@nilumahato](https://github.com/nilumahato)
 
 
 ## 🙏 Acknowledgements
