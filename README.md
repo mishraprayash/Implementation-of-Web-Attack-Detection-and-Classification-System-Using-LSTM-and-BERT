@@ -158,7 +158,7 @@ chmod +x setup_and_run.sh
     "inference_time_ms": 15.234,
     "prediction_probability": 0.9011,
     "malicious": true,
-    "mode": "LSTM"
+    "model": "LSTM"
   }
   ```
 
@@ -195,7 +195,7 @@ curl -X POST http://127.0.0.1:8000/predict_lstm \
     "inference_time_ms": 15.234,
     "prediction_probability": 0.9011,
     "malicious": true,
-    "mode": "BERT"
+    "model": "BERT"
   }
   ```
 
