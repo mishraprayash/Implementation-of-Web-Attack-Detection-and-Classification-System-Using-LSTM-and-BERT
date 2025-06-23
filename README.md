@@ -7,10 +7,10 @@ This project deploys both Long Short-Term Memory (LSTM) and Mobile‑BERT machin
 
 ## Contributors
 
-- [@mishraprayash](https://github.com/mishraprayash)
-- [@ashimkarki](https://github.com/Ashimkarrki)
-- [@nirajneupane](https://github.com/patali09)
-- [@nilumahato](https://github.com/nilumahato)
+- [@mishraprayash](https://github.com/mishraprayash)  [ Implementation ]
+- [@ashimkarki](https://github.com/Ashimkarrki)  [ Machine Learning ]
+- [@nirajneupane](https://github.com/patali09)  [ Data modeling and preparation ]
+- [@nilumahato](https://github.com/nilumahato)  [ Machine Learning and Data preparation ]
 
 
 ## 📂 Project Structure
