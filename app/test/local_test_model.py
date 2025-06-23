@@ -6,7 +6,7 @@ from requestgenerator import generate_request_malicious, generate_request_normal
 import time
 
 
-model=torch.jit.load("./model.pt",map_location="cpu")
+model=torch.jit.load("../ai_model/lstm_model.pt",map_location="cpu")
 label=['normal', 'sql', 'xss', 'cmd', 'lfi', 'ssrf', 'html', 'css', 'nosql']
 
 class preprocess:
@@ -14,7 +14,7 @@ class preprocess:
         self.special_chars_pattern = re.compile(r'([.,!?;:(){}\[\]@"#$%^&*\-_=+|\\<>~/^\'"])')
         self.multispace_pattern = re.compile(r"\s+")
         self.tokenizer=get_tokenizer(None,language="en")
-        self.vocab=torch.load("./vocab.pth")
+        self.vocab=torch.load("../ai_model/lstm_vocab.pth")
         self.max_length=235
         self.pad_index=self.vocab["<pad>"]
         
@@ -55,4 +55,6 @@ TEST_REQUEST_COUNT = 20
 
 for i in range(TEST_REQUEST_COUNT):
     normal_req = generate_request_normal()
+    malicious_req = generate_request_malicious()
+    testFunction(malicious_req)
     testFunction(normal_req)
