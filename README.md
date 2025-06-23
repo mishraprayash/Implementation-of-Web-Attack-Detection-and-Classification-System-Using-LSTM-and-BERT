@@ -55,33 +55,27 @@ cd Implementation-of-Web-Attack-Detection-and-Classification-System-Using-LSTM
 
 ### 2. Create & Activate Virtual Environment
 
-#### Using Conda
+Choose one of the options below:
 
-```bash
-conda create -n webattack_env python=3.11 -y
-conda activate webattack_env
-```
+* **Conda (recommended):**
 
-##### Alternative via `environment.yml`
+  ```bash
+  conda create -n webattack_env python=3.11 -y && \
+  conda activate webattack_env
+  ```
 
-```bash
-conda env create -f environment.yml
-conda activate webattack_env
-```
+* **`venv`:**
 
-#### Using `venv` (macOS/Linux)
+  * macOS/Linux:
 
-```bash
-python3.11 -m venv webattack_env
-source webattack_env/bin/activate
-```
+    ```bash
+    python3 -m venv env && source env/bin/activate
+    ```
+  * Windows (PowerShell):
 
-#### Using `venv` (Windows)
-
-```bash
-python -m venv webattack_env
-webattack_env\Scripts\activate
-```
+    ```bash
+    python -m venv env && .\env\Scripts\Activate.ps1
+    ```
 
 ### 3. Install Python Dependencies
 
@@ -209,6 +203,7 @@ curl -X POST http://127.0.0.1:8000/predict_lstm \
 
 ## Developers Team
 
+- [@mishraprayash](https://github.com/mishraprayash)
 - [@ashimkarki](https://github.com/Ashimkarrki)
 - [@nirajneupane](https://github.com/patali09)
 - [@nilumahato](https://github.com/nilumahato)
